@@ -14,6 +14,8 @@ import { IUserDocument } from '@user/interfaces/user.interface';
 import { UserCache } from '@service/redis/user.cache';
 import { omit } from 'lodash';
 import { userQueue } from '@service/queues/user.queue';
+import JWT from 'jsonwebtoken';
+import { config } from '@root/config';
 
 const userCache: UserCache = new UserCache();
 
@@ -55,7 +57,23 @@ export class SignUp {
     authQueue.addAuthUserJob('addAuthUserToDb', { value: userDataForCache });
     userQueue.addUserJob('addUserToDb', { value: userDataForCache });
 
-    res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', authData });
+    const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
+    req.session = { jwt: userJwt };
+
+    res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
+  }
+
+  private signToken(data: IAuthDocument, userObjectId: ObjectId): string {
+    return JWT.sign(
+      {
+        userId: userObjectId,
+        uId: data.uId,
+        email: data.email,
+        username: data.username,
+        avatarColor: data.avatarColor
+      },
+      config.JWT_TOKEN!
+    );
   }
 
   private signupData(data: ISignUpData): IAuthDocument {
