@@ -13,6 +13,7 @@ import { uploads } from '@global/helpers/cloudinary-upload';
 import { IUserDocument } from '@user/interfaces/user.interface';
 import { UserCache } from '@service/redis/user.cache';
 import { omit } from 'lodash';
+import { userQueue } from '@service/queues/user.queue';
 
 const userCache: UserCache = new UserCache();
 
@@ -52,6 +53,7 @@ export class SignUp {
     // Add to mongoDB
     omit(userDataForCache, ['uId', 'username', 'email', 'password', 'avatarColor']);
     authQueue.addAuthUserJob('addAuthUserToDb', { value: userDataForCache });
+    userQueue.addUserJob('addUserToDb', { value: userDataForCache });
 
     res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', authData });
   }
