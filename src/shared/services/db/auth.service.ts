@@ -5,6 +5,7 @@ import { Helpers } from '@global/helpers/helpers';
 class AuthService {
   public async getUserByUsernameOrEmail(username: string, email: string): Promise<IAuthDocument> {
     const query = {
+      /* `$or` is a mongoose operator that allows you to query for multiple conditions. */
       $or: [{ username: Helpers.firstLetterUppercase(username) }, { email: Helpers.lowerCase(email) }]
     };
     const user: IAuthDocument = (await AuthModel.findOne(query).exec()) as IAuthDocument;

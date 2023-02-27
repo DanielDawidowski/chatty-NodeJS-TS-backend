@@ -1,3 +1,4 @@
+import HTTP_STATUS from 'http-status-codes';
 import { UploadApiResponse } from 'cloudinary';
 import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
@@ -35,6 +36,8 @@ export class SignUp {
     if (!result?.public_id) {
       throw new BadRequestError('File upload: Error occured. Try again.');
     }
+
+    res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', authData });
   }
 
   private signupData(data: ISignUpData): IAuthDocument {
