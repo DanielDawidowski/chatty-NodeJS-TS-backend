@@ -1,3 +1,5 @@
+import { userService } from '@service/db/user.service';
+import { IUserDocument } from '@user/interfaces/user.interface';
 import { Request, Response } from 'express';
 import JWT from 'jsonwebtoken';
 import HTTP_STATUS from 'http-status-codes';
@@ -13,7 +15,7 @@ export class SignIn {
   public async read(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
 
-    const existingUser: IAuthDocument = await authService.getUserByEmail(email);
+    const existingUser: IAuthDocument = await authService.getAuthUserByEmail(email);
 
     if (!existingUser) {
       throw new BadRequestError('Invalid credentials');
@@ -23,6 +25,8 @@ export class SignIn {
     if (!passwordsMatch) {
       throw new BadRequestError('Invalid credentials');
     }
+
+    const user: IUserDocument = await userService.getUserByAuthId(`${existingUser._id}`);
     const userJwt: string = JWT.sign(
       {
         userId: existingUser._id,
@@ -34,6 +38,15 @@ export class SignIn {
       config.JWT_TOKEN!
     );
     req.session = { jwt: userJwt };
-    res.status(HTTP_STATUS.OK).json({ message: 'User login successfully', user: existingUser, token: userJwt });
+    const userDocument: IUserDocument = {
+      ...user,
+      authId: existingUser!._id,
+      username: existingUser!.username,
+      email: existingUser!.email,
+      avatarColor: existingUser!.avatarColor,
+      uId: existingUser!.uId,
+      createdAt: existingUser!.createdAt
+    } as IUserDocument;
+    res.status(HTTP_STATUS.OK).json({ message: 'User login successfully', user: userDocument, token: userJwt });
   }
 }
