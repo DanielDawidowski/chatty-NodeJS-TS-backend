@@ -54,7 +54,7 @@ export class SignUp {
 
     // Add to mongoDB
     omit(userDataForCache, ['uId', 'username', 'email', 'password', 'avatarColor']);
-    authQueue.addAuthUserJob('addAuthUserToDb', { value: userDataForCache });
+    authQueue.addAuthUserJob('addAuthUserToDb', { value: authData });
     userQueue.addUserJob('addUserToDb', { value: userDataForCache });
 
     const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
