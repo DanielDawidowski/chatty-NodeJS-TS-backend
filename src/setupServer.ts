@@ -81,9 +81,9 @@ export class ChattyServer {
   private async startServer(app: Application): Promise<void> {
     try {
       const httpServer: http.Server = new http.Server(app);
-      const socketIO: Server = await this.createSocketIO(httpServer);
+      // const socketIO: Server = await this.createSocketIO(httpServer);
       this.startHttpServer(httpServer);
-      this.socketIOConnections(socketIO);
+      // this.socketIOConnections(socketIO);
     } catch (error) {
       log.error(error);
     }
@@ -110,7 +110,7 @@ export class ChattyServer {
     });
   }
 
-  private socketIOConnections(io: Server): void {
-    log.info('socketIOConnections');
-  }
+  // private socketIOConnections(io: Server): void {
+  //   log.info('socketIOConnections');
+  // }
 }
