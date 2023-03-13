@@ -6,6 +6,7 @@ import { SignUp } from '../signup';
 import { authService } from '@service/db/auth.service';
 import { UserCache } from '@service/redis/user.cache';
 
+jest.useFakeTimers();
 jest.mock('@service/queues/base.queue');
 jest.mock('@service/redis/user.cache');
 jest.mock('@service/queues/user.queue');
@@ -13,6 +14,15 @@ jest.mock('@service/queues/auth.queue');
 jest.mock('@global/helpers/cloudinary-upload');
 
 describe('SignUp', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.clearAllTimers();
+  });
+
   it('should throw an error if username is not available', () => {
     const req: Request = authMockRequest(
       {},
