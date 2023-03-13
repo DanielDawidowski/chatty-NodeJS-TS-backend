@@ -6,6 +6,15 @@ class AuthService {
   public async createAuthUser(data: IAuthDocument): Promise<void> {
     await AuthModel.create(data);
   }
+  public async updatePasswordToken(authId: string, token: string, tokenExpiration: number): Promise<void> {
+    await AuthModel.updateOne(
+      { _id: authId },
+      {
+        passwordResetToken: token,
+        passwordResetExpires: tokenExpiration
+      }
+    );
+  }
   public async getUserByUsernameOrEmail(username: string, email: string): Promise<IAuthDocument> {
     const query = {
       /* `$or` is a mongoose operator that allows you to query for multiple conditions. */
