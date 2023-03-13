@@ -39,6 +39,27 @@ Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
+###
+POST {{baseUrl}}/{{urlPath}}/forgot-password
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+  {
+    "email": "dan@wp.pl"
+  }
+
+###
+POST {{baseUrl}}/{{urlPath}}/reset-password/9884252462a93d4cd0a459571695ca48f0a7a1f6
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+  {
+    "password": "qwerty1",
+    "confirmPassword": "qwerty1"
+  }
+
 
 
 
