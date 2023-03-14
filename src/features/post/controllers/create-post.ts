@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 import { ObjectId } from 'mongodb';
 import { PostCache } from '@service/redis/post.cache';
+import { socketIOPostObject } from '@socket/post';
 
 const postCache: PostCache = new PostCache();
 
@@ -40,12 +41,15 @@ export class Create {
       }
     } as IPostDocument;
 
+    socketIOPostObject.emit('add post', createdPost);
+
     await postCache.savePostToCache({
       key: postObjectId,
       currentUserId: `${req.currentUser!.userId}`,
       uId: `${req.currentUser!.uId}`,
       createdPost
     });
+
     res.status(HTTP_STATUS.CREATED).json({ message: 'Post created successfully' });
   }
 }
