@@ -13,7 +13,7 @@ export class SocketIOPostHandler {
   public listen(): void {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.io.on('connection', (socket: Socket) => {
-      console.log('post socketio handler');
+      console.log('Post socketio handler');
     });
   }
 }

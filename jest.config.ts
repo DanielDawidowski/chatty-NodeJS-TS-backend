@@ -27,6 +27,7 @@ const config: Config.InitialOptions = {
     '@post/(.*)': ['<rootDir>/src/features/post/$1'],
     '@global/(.*)': ['<rootDir>/src/shared/globals/$1'],
     '@service/(.*)': ['<rootDir>/src/shared/services/$1'],
+    '@socket/(.*)': ['<rootDir>/src/shared/sockets/$1'],
     '@worker/(.*)': ['<rootDir>/src/shared/workers/$1'],
     '@root/(.*)': ['<rootDir>/src/$1']
   }
