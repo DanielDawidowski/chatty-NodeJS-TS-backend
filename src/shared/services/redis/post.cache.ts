@@ -81,7 +81,7 @@ export class PostCache extends BaseCache {
         await this.client.connect();
       }
 
-      const reply: string[] = await this.client.ZRANGE(key, start, end, { REV: true });
+      const reply: string[] = await this.client.ZRANGE(key, start, end);
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
       for (const value of reply) {
         multi.HGETALL(`posts:${value}`);
@@ -95,7 +95,7 @@ export class PostCache extends BaseCache {
         postReplies.push(post);
       }
 
-      return postReplies;
+      return postReplies.reverse();
     } catch (error) {
       log.error(error);
       throw new ServerError('Server error. Try again.');
@@ -121,7 +121,7 @@ export class PostCache extends BaseCache {
         await this.client.connect();
       }
 
-      const reply: string[] = await this.client.ZRANGE(key, start, end, { REV: true });
+      const reply: string[] = await this.client.ZRANGE(key, start, end);
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
       for (const value of reply) {
         multi.HGETALL(`posts:${value}`);
@@ -136,7 +136,7 @@ export class PostCache extends BaseCache {
           postWithImages.push(post);
         }
       }
-      return postWithImages;
+      return postWithImages.reverse();
     } catch (error) {
       log.error(error);
       throw new ServerError('Server error. Try again.');
