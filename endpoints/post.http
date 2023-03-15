@@ -44,3 +44,19 @@ Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
+###
+PUT {{baseUrl}}/{{urlPath}}/post/64106c3b20cabdfd5c9394d2
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "post": "This is my updated post",
+  "bgColor": "#333333",
+  "privacy": "Private",
+  "gifUrl": "",
+  "profilePicture": "https://res.cloudinary.com/dandawid/image/upload/v1678711538/640f1af295323c118ae0fc4d",
+  "feelings": "happy",
+  "imgId": "",
+  "imgVersion": ""
+}
