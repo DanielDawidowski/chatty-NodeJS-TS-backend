@@ -1,8 +1,8 @@
-import { ServerError } from '@global/helpers/error-handler';
+import { BaseCache } from '@service/redis/base.cache';
 import Logger from 'bunyan';
 import { config } from '@root/config';
-import { BaseCache } from '@service/redis/base.cache';
-import { IPostDocument, IReactions, ISavePostToCache } from '@post/interfaces/post.interface';
+import { ServerError } from '@global/helpers/error-handler';
+import { ISavePostToCache, IPostDocument, IReactions } from '@post/interfaces/post.interface';
 import { Helpers } from '@global/helpers/helpers';
 import { RedisCommandRawReply } from '@redis/client/dist/lib/commands';
 
@@ -81,7 +81,7 @@ export class PostCache extends BaseCache {
         await this.client.connect();
       }
 
-      const reply: string[] = await this.client.ZRANGE(key, start, end);
+      const reply: string[] = await this.client.ZRANGE(key, start, end, { REV: true });
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
       for (const value of reply) {
         multi.HGETALL(`posts:${value}`);
@@ -95,7 +95,7 @@ export class PostCache extends BaseCache {
         postReplies.push(post);
       }
 
-      return postReplies.reverse();
+      return postReplies;
     } catch (error) {
       log.error(error);
       throw new ServerError('Server error. Try again.');
@@ -121,7 +121,7 @@ export class PostCache extends BaseCache {
         await this.client.connect();
       }
 
-      const reply: string[] = await this.client.ZRANGE(key, start, end);
+      const reply: string[] = await this.client.ZRANGE(key, start, end, { REV: true });
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
       for (const value of reply) {
         multi.HGETALL(`posts:${value}`);
@@ -136,7 +136,7 @@ export class PostCache extends BaseCache {
           postWithImages.push(post);
         }
       }
-      return postWithImages.reverse();
+      return postWithImages;
     } catch (error) {
       log.error(error);
       throw new ServerError('Server error. Try again.');
