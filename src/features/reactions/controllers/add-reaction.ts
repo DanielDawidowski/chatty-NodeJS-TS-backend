@@ -22,7 +22,7 @@ export class Add {
       profilePicture
     } as IReactionDocument;
 
-    // await reactionCache.savePostReactionToCache(postId, reactionObject, postReactions, type, previousReaction);
+    await reactionCache.savePostReactionToCache(postId, reactionObject, postReactions, type, previousReaction);
 
     const databaseReactionData: IReactionJob = {
       postId,
