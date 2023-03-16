@@ -1,7 +1,7 @@
-import { ServerError } from './../../globals/helpers/error-handler';
+import { ServerError } from '@global/helpers/error-handler';
 import Logger from 'bunyan';
 import { config } from '@root/config';
-import { IUserDocument } from './../../../features/user/interfaces/user.interface';
+import { IUserDocument } from '@user/interfaces/user.interface';
 import { BaseCache } from '@service/redis/base.cache';
 import { Helpers } from '@global/helpers/helpers';
 
