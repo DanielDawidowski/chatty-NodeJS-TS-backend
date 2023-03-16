@@ -8,7 +8,7 @@ import { ICommentDocument, ICommentNameList } from '@comment/interfaces/comment.
 
 const log: Logger = config.createLogger('commentsCache');
 
-export class CommentsCache extends BaseCache {
+export class CommentCache extends BaseCache {
   constructor() {
     super('commentsCache');
   }
