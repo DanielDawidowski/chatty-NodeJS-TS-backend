@@ -5,6 +5,7 @@ import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { addReactionSchema } from '@reaction/schemes/reactions.schema';
 import { IReactionDocument, IReactionJob } from '@reaction/interfaces/reaction.interface';
 import { ReactionCache } from '@service/redis/reaction.cache';
+import { reactionQueue } from '@service/queues/reaction.queue';
 // import { reactionQueue } from '@service/queues/reaction.queue';
 
 const reactionCache: ReactionCache = new ReactionCache();
@@ -14,7 +15,6 @@ export class Add {
   public async reaction(req: Request, res: Response): Promise<void> {
     const { userTo, postId, type, previousReaction, postReactions, profilePicture } = req.body;
     const reactionObject: IReactionDocument = {
-      _id: new ObjectId(),
       postId,
       type,
       avataColor: req.currentUser!.avatarColor,
@@ -22,7 +22,7 @@ export class Add {
       profilePicture
     } as IReactionDocument;
 
-    await reactionCache.savePostReactionToCache(postId, reactionObject, postReactions, type, previousReaction);
+    // await reactionCache.savePostReactionToCache(postId, reactionObject, postReactions, type, previousReaction);
 
     const databaseReactionData: IReactionJob = {
       postId,
@@ -33,7 +33,7 @@ export class Add {
       previousReaction,
       reactionObject
     };
-    // reactionQueue.addReactionJob('addReactionToDB', databaseReactionData);
+    reactionQueue.addReactionJob('addReactionToDB', databaseReactionData);
     res.status(HTTP_STATUS.OK).json({ message: 'Reaction added successfully' });
   }
 }
