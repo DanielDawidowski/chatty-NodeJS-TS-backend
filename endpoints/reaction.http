@@ -23,3 +23,27 @@ Accept: application/json
 withCredentials: true
 
 {}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/641076c98f58fe541e497259
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/Daniel/641076c98f58fe541e497259
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/username/Daniel
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
