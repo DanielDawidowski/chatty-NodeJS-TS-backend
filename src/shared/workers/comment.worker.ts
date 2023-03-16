@@ -1,9 +1,9 @@
-import { commentService } from './../services/db/comment.service';
 import { DoneCallback, Job } from 'bull';
 import Logger from 'bunyan';
 import { config } from '@root/config';
+import { commentService } from '@service/db/comment.service';
 
-const log: Logger = config.createLogger('emailWorker');
+const log: Logger = config.createLogger('commentWorker');
 
 class CommentWorker {
   async addCommentToDB(job: Job, done: DoneCallback): Promise<void> {
