@@ -1,8 +1,18 @@
 @baseUrl = http://localhost:5000
 @urlPath = api/v1
 
+###
 PUT {{baseUrl}}/{{urlPath}}/user/follow/64185871a57419da1ba895cc
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
+{}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/unfollow/6418583bba9097a02a80fc16/64185822ba9097a02a80fc0d
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
