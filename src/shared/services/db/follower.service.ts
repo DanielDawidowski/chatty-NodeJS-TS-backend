@@ -84,6 +84,7 @@ class FollowerService {
         }
       },
       {
+        /* Removing the fields that we don't want to return to the client. */
         $project: {
           authId: 0,
           followerId: 0,
@@ -94,6 +95,39 @@ class FollowerService {
       }
     ]);
     return followee;
+  }
+
+  public async getFollowerData(userObjectId: ObjectId): Promise<IFollowerData[]> {
+    const follower: IFollowerData[] = await FollowerModel.aggregate([
+      { $match: { followeeId: userObjectId } },
+      { $lookup: { from: 'User', localField: 'followerId', foreignField: '_id', as: 'followerId' } },
+      { $unwind: '$followerId' },
+      { $lookup: { from: 'Auth', localField: 'followerId.authId', foreignField: '_id', as: 'authId' } },
+      { $unwind: '$authId' },
+      {
+        $addFields: {
+          _id: '$followerId._id',
+          username: '$authId.username',
+          avatarColor: '$authId.avatarColor',
+          uId: '$authId.uId',
+          postCount: '$followerId.postsCount',
+          followersCount: '$followerId.followersCount',
+          followingCount: '$followerId.followingCount',
+          profilePicture: '$followerId.profilePicture',
+          userProfile: '$followerId'
+        }
+      },
+      {
+        $project: {
+          authId: 0,
+          followerId: 0,
+          followeeId: 0,
+          createdAt: 0,
+          __v: 0
+        }
+      }
+    ]);
+    return follower;
   }
 }
 
