@@ -23,8 +23,8 @@ Accept: application/json
 withCredentials: true
 
   {
-    "email": "dan@wp.pl",
-    "password": "qwerty1"
+    "email": "mar@wp.pl",
+    "password": "qwerty"
   }
 
 ###
