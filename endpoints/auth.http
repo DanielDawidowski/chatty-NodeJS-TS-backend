@@ -8,7 +8,7 @@ Accept: application/json
 withCredentials: true
 
   {
-    "username": "zbych",
+    "username": "zbychu",
     "password": "qwerty",
     "email": "zbych@wp.pl",
     "avatarColor": "red",
@@ -23,7 +23,7 @@ Accept: application/json
 withCredentials: true
 
   {
-    "username": "zbych",
+    "username": "daniel",
     "password": "qwerty"
   }
 
