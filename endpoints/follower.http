@@ -27,3 +27,19 @@ GET {{baseUrl}}/{{urlPath}}/user/followers/64187c61b173a91849641018
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/block/64187ca1b173a9184964102d
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/user/unblock/64187c79b173a91849641026
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}

@@ -6,6 +6,8 @@ import { UserCache } from '@service/redis/user.cache';
 import { IFollowerData } from '@follower/interfaces/follower.interface';
 import { IUserDocument } from '@user/interfaces/user.interface';
 import mongoose from 'mongoose';
+import { Helpers } from '@global/helpers/helpers';
+import { remove } from 'lodash';
 
 const log: Logger = config.createLogger('followersCache');
 const userCache: UserCache = new UserCache();
