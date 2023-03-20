@@ -8,7 +8,7 @@ import { authService } from '@service/db/auth.service';
 import { userService } from '@service/db/user.service';
 import { mergedAuthAndUserData } from '@root/mocks/user.mock';
 
-const EMAIL = 'dan@wp.pl';
+const EMAIL = 'daniel';
 const PASSWORD = 'qwerty1';
 const WRONG_EMAIL = 'ma';
 const WRONG_PASSWORD = 'ma';

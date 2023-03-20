@@ -2,7 +2,7 @@
 @urlPath = api/v1
 
 ###
-PUT {{baseUrl}}/{{urlPath}}/user/follow/64185871a57419da1ba895cc
+PUT {{baseUrl}}/{{urlPath}}/user/follow/641857c4d5c2fc6a36f1cf22
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
@@ -10,8 +10,7 @@ withCredentials: true
 {}
 
 ###
-PUT {{baseUrl}}/{{urlPath}}/user/unfollow/6418583bba9097a02a80fc16/64185822ba9097a02a80fc0d
-Content-Type: application/json
+PUT {{baseUrl}}/{{urlPath}}/user/unfollow/6418583bba9097a02a80fc16/641857c4d5c2fc6a36f1cf22
 Accept: application/json
 withCredentials: true
 
