@@ -17,6 +17,7 @@ import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
 import { SocketIOPostHandler } from '@socket/post';
 import { SocketIOFollowerHandler } from '@socket/follower';
 import { SocketIOUserHandler } from '@socket/user';
+import { SocketIONotificationHandler } from '@socket/notifications';
 
 const SERVER_PORT = 5000;
 
@@ -117,9 +118,11 @@ export class ChattyServer {
     const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io);
     const followerSocketHandler: SocketIOFollowerHandler = new SocketIOFollowerHandler(io);
     const socketIOUserObject: SocketIOUserHandler = new SocketIOUserHandler(io);
+    const notificationSocketHandler: SocketIONotificationHandler = new SocketIONotificationHandler();
 
     postSocketHandler.listen();
     followerSocketHandler.listen();
     socketIOUserObject.listen();
+    notificationSocketHandler.listen(io);
   }
 }
