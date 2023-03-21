@@ -5,8 +5,11 @@ import { PostModel } from '@post/models/post.schema';
 import mongoose, { Query } from 'mongoose';
 import { UserCache } from '@service/redis/user.cache';
 import { IUserDocument } from '@user/interfaces/user.interface';
-import { INotificationDocument } from '@notification/interfaces/notification.interface';
+import { INotificationDocument, INotificationTemplate } from '@notification/interfaces/notification.interface';
 import { NotificationModel } from '@notification/models/notification.schema';
+import { socketIONotificationObject } from '@socket/notifications';
+import { notificationTemplate } from '@service/emails/templates/notifications/notification-template';
+import { emailQueue } from '@service/queues/email.queue';
 
 const userCache: UserCache = new UserCache();
 
@@ -39,6 +42,14 @@ class CommentService {
         gifUrl: response[1].gifUrl!,
         reaction: ''
       });
+      socketIONotificationObject.emit('insert notification', notifications, { userTo });
+      const templateParams: INotificationTemplate = {
+        username: response[2].username!,
+        message: `${username} commented on your post.`,
+        header: 'Comment Notification'
+      };
+      const template: string = notificationTemplate.notificationMessageTemplate(templateParams);
+      emailQueue.addEmailJob('commentsEmail', { receiverEmail: response[2].email!, template, subject: 'Post notification' });
     }
   }
 

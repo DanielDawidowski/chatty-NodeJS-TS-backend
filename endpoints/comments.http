@@ -8,9 +8,9 @@ Accept: application/json
 withCredentials: true
 
 {
-  "userTo": "640f1af295323c118ae0fc4d",
-  "postId": "641076c98f58fe541e497259",
-  "comment": "this is my second comment",
+  "userTo": "64187c6db173a9184964101f",
+  "postId": "6419a3c4287b4393e3a02335",
+  "comment": "this is my first comment",
   "profilePicture": "https://res.cloudinary.com/dandawid/image/upload/v1678711538/640f1af295323c118ae0fc4d"
 }
 
