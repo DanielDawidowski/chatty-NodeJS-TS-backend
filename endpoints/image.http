@@ -30,3 +30,15 @@ withCredentials: true
 {
   "image": "https://res.cloudinary.com/dandawid/image/upload/v1679326306/64187c61b173a91849641018"
 }
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/images/6419e8288068aebe6562b677
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/images/background/64187c61b173a91849641018
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
