@@ -8,13 +8,13 @@ Accept: application/json
 withCredentials: true
 
 {
-  "conversationId": "",
+  "conversationId": "641ae279a3e3b2ee32bf5e28",
   "receiverId": "64187c79b173a91849641026",
   "receiverUsername": "Rafal",
   "receiverAvatarColor": "red",
   "receiverProfilePicture": "<cloudinary-user-profile-picture-url>",
-  "body": "siemanko co tam",
+  "body": "siemanko co tam mordo",
   "gifUrl": "",
-  "isRead": false,
+  "isRead": true,
   "selectedImage": ""
 }
