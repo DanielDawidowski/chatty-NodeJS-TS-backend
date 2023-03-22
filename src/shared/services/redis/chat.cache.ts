@@ -1,6 +1,6 @@
 import { BaseCache } from '@service/redis/base.cache';
 import Logger from 'bunyan';
-import { findIndex, find, filter, remove } from 'lodash';
+import { findIndex } from 'lodash';
 import { config } from '@root/config';
 import { ServerError } from '@global/helpers/error-handler';
 import { IChatUsers, IMessageData } from '@chat/interfaces/chat.interface';

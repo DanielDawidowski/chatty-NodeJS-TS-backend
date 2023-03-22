@@ -1,3 +1,4 @@
+import { chatQueue } from './../../../shared/services/queues/chat.queue';
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 import { UserCache } from '@service/redis/user.cache';
@@ -82,7 +83,7 @@ export class Add {
     await messageCache.addChatListToCache(`${req.currentUser!.userId}`, `${receiverId}`, `${conversationObjectId}`);
     await messageCache.addChatListToCache(`${receiverId}`, `${req.currentUser!.userId}`, `${conversationObjectId}`);
     await messageCache.addChatMessageToCache(`${conversationObjectId}`, messageData);
-
+    chatQueue.addChatJob('addChatMessageToDB', messageData);
     res.status(HTTP_STATUS.OK).json({ message: 'Message added', conversationId: conversationObjectId });
   }
 
