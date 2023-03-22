@@ -52,3 +52,10 @@ GET {{baseUrl}}/{{urlPath}}/chat/message/user/64187c79b173a91849641026
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/chat/message/mark-as-deleted/641af35017dc216d9a73e13a/64187c61b173a91849641018/64187c79b173a91849641026/deleteForEveryone
+# For this endpoint, the type is either deleteForMe or deleteForEveryone
+Content-Type: application/json
+Accept: application/json
+withCredentials: true

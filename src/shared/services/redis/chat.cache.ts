@@ -3,7 +3,7 @@ import Logger from 'bunyan';
 import { findIndex, find } from 'lodash';
 import { config } from '@root/config';
 import { ServerError } from '@global/helpers/error-handler';
-import { IChatList, IChatUsers, IMessageData } from '@chat/interfaces/chat.interface';
+import { IChatList, IChatUsers, IGetMessageFromCache, IMessageData } from '@chat/interfaces/chat.interface';
 import { Helpers } from '@global/helpers/helpers';
 
 const log: Logger = config.createLogger('messageCache');
@@ -162,5 +162,16 @@ export class MessageCache extends BaseCache {
       chatUsersList.push(chatUser);
     }
     return chatUsersList;
+  }
+
+  private async getMessage(senderId: string, receiverId: string, messageId: string): Promise<IGetMessageFromCache> {
+    const userChatList: string[] = await this.client.LRANGE(`chatList:${senderId}`, 0, -1);
+    const receiver: string = find(userChatList, (listItem: string) => listItem.includes(receiverId)) as string;
+    const parsedReceiver: IChatList = Helpers.parseJson(receiver) as IChatList;
+    const messages: string[] = await this.client.LRANGE(`messages:${parsedReceiver.conversationId}`, 0, -1);
+    const message: string = find(messages, (listItem: string) => listItem.includes(messageId)) as string;
+    const index: number = findIndex(messages, (listItem: string) => listItem.includes(messageId));
+
+    return { index, message, receiver: parsedReceiver };
   }
 }
