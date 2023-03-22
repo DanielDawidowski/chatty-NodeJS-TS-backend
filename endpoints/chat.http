@@ -40,3 +40,9 @@ withCredentials: true
   "userOne": "",
   "userTwo": ""
 }
+
+###
+GET {{baseUrl}}/{{urlPath}}/chat/message/conversation-list
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
