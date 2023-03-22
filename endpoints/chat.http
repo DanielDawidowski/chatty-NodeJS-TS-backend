@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/chat/message
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "conversationId": "",
+  "receiverId": "64187c79b173a91849641026",
+  "receiverUsername": "Rafal",
+  "receiverAvatarColor": "red",
+  "receiverProfilePicture": "<cloudinary-user-profile-picture-url>",
+  "body": "siemanko co tam",
+  "gifUrl": "",
+  "isRead": false,
+  "selectedImage": ""
+}
