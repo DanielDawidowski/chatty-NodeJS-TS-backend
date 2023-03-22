@@ -13,7 +13,7 @@ withCredentials: true
   "receiverUsername": "Rafal",
   "receiverAvatarColor": "red",
   "receiverProfilePicture": "<cloudinary-user-profile-picture-url>",
-  "body": "siemanko co tam mordo",
+  "body": "this is new message",
   "gifUrl": "",
   "isRead": false,
   "selectedImage": ""
@@ -43,6 +43,12 @@ withCredentials: true
 
 ###
 GET {{baseUrl}}/{{urlPath}}/chat/message/conversation-list
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/chat/message/user/64187c79b173a91849641026
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
