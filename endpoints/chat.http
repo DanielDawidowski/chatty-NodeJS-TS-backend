@@ -15,7 +15,7 @@ withCredentials: true
   "receiverProfilePicture": "<cloudinary-user-profile-picture-url>",
   "body": "siemanko co tam mordo",
   "gifUrl": "",
-  "isRead": true,
+  "isRead": false,
   "selectedImage": ""
 }
 
