@@ -2,6 +2,9 @@ import { ISocketData } from '@user/interfaces/user.interface';
 import { Server, Socket } from 'socket.io';
 
 export let socketIOUserObject: Server;
+export const connectedUsersMap: Map<string, string> = new Map();
+
+let users: string[] = [];
 
 export class SocketIOUserHandler {
   private io: Server;
@@ -20,5 +23,11 @@ export class SocketIOUserHandler {
         this.io.emit('unblock user id', data);
       });
     });
+  }
+
+  private addClientToMap(username: string, socketId: string): void {
+    if (!connectedUsersMap.has(username)) {
+      connectedUsersMap.set(username, socketId);
+    }
   }
 }
