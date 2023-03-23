@@ -36,7 +36,7 @@ export const mockFollowerData: IFollowerData = {
 };
 
 export const followerData = {
-  _id: '605727cd646cb50e668a4e13',
+  _id: new mongoose.Types.ObjectId('605727cd646cb50e668a4e13'),
   followerId: {
     username: 'Manny',
     postCount: 5,

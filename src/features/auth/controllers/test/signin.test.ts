@@ -8,7 +8,7 @@ import { authService } from '@service/db/auth.service';
 import { userService } from '@service/db/user.service';
 import { mergedAuthAndUserData } from '@root/mocks/user.mock';
 
-const EMAIL = 'daniel';
+const USERNAME = 'daniel';
 const PASSWORD = 'qwerty1';
 const WRONG_EMAIL = 'ma';
 const WRONG_PASSWORD = 'ma';
@@ -29,16 +29,16 @@ describe('SignIn', () => {
   });
 
   it('should throw an error if username is not available', () => {
-    const req: Request = authMockRequest({}, { email: '', password: PASSWORD }) as Request;
+    const req: Request = authMockRequest({}, { username: '', password: PASSWORD }) as Request;
     const res: Response = authMockResponse();
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400);
-      expect(error.serializeErrors().message).toEqual('Email is a required field');
+      expect(error.serializeErrors().message).toEqual('Username is a required field');
     });
   });
 
   it('should throw an error if password is not available', () => {
-    const req: Request = authMockRequest({}, { email: EMAIL, password: '' }) as Request;
+    const req: Request = authMockRequest({}, { username: USERNAME, password: '' }) as Request;
     const res: Response = authMockResponse();
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400);
@@ -47,7 +47,7 @@ describe('SignIn', () => {
   });
 
   it('should throw an error if password length is less than minimum length', () => {
-    const req: Request = authMockRequest({}, { email: EMAIL, password: WRONG_PASSWORD }) as Request;
+    const req: Request = authMockRequest({}, { username: USERNAME, password: WRONG_PASSWORD }) as Request;
     const res: Response = authMockResponse();
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400);
@@ -56,7 +56,7 @@ describe('SignIn', () => {
   });
 
   it('should throw an error if password length is greater than maximum length', () => {
-    const req: Request = authMockRequest({}, { email: EMAIL, password: LONG_PASSWORD }) as Request;
+    const req: Request = authMockRequest({}, { username: USERNAME, password: LONG_PASSWORD }) as Request;
     const res: Response = authMockResponse();
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
       expect(error.statusCode).toEqual(400);
@@ -65,31 +65,31 @@ describe('SignIn', () => {
   });
 
   it('should throw "Invalid credentials" if username does not exist', () => {
-    const req: Request = authMockRequest({}, { email: EMAIL, password: PASSWORD }) as Request;
+    const req: Request = authMockRequest({}, { username: USERNAME, password: PASSWORD }) as Request;
     const res: Response = authMockResponse();
     jest.spyOn(authService, 'getAuthUserByEmail').mockResolvedValueOnce(null as any);
 
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
-      expect(authService.getAuthUserByEmail).toHaveBeenCalledWith(Helpers.lowerCase(req.body.email));
+      expect(authService.getAuthUserByEmail).toHaveBeenCalledWith(Helpers.lowerCase(req.body.username));
       expect(error.statusCode).toEqual(400);
       expect(error.serializeErrors().message).toEqual('Invalid credentials');
     });
   });
 
   it('should throw "Invalid credentials" if password does not exist', () => {
-    const req: Request = authMockRequest({}, { email: EMAIL, password: PASSWORD }) as Request;
+    const req: Request = authMockRequest({}, { username: USERNAME, password: PASSWORD }) as Request;
     const res: Response = authMockResponse();
     jest.spyOn(authService, 'getAuthUserByEmail').mockResolvedValueOnce(null as any);
 
     SignIn.prototype.read(req, res).catch((error: CustomError) => {
-      expect(authService.getAuthUserByEmail).toHaveBeenCalledWith(Helpers.lowerCase(req.body.email));
+      expect(authService.getAuthUserByEmail).toHaveBeenCalledWith(Helpers.lowerCase(req.body.username));
       expect(error.statusCode).toEqual(400);
       expect(error.serializeErrors().message).toEqual('Invalid credentials');
     });
   });
 
   it('should set session data for valid credentials and send correct json response', async () => {
-    const req: Request = authMockRequest({}, { email: EMAIL, password: PASSWORD }) as Request;
+    const req: Request = authMockRequest({}, { username: USERNAME, password: PASSWORD }) as Request;
     const res: Response = authMockResponse();
     authMock.comparePassword = () => Promise.resolve(true);
     jest.spyOn(authService, 'getAuthUserByEmail').mockResolvedValue(authMock);
