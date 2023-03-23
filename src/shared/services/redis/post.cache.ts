@@ -150,7 +150,7 @@ export class PostCache extends BaseCache {
         await this.client.connect();
       }
 
-      const reply: string[] = await this.client.ZRANGE(key, uId, uId, { REV: true, BY: 'SCORE' });
+      const reply: string[] = await this.client.ZRANGE(key, uId, uId);
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
       for (const value of reply) {
         multi.HGETALL(`posts:${value}`);
@@ -163,7 +163,7 @@ export class PostCache extends BaseCache {
         post.createdAt = new Date(Helpers.parseJson(`${post.createdAt}`)) as Date;
         postReplies.push(post);
       }
-      return postReplies;
+      return postReplies.reverse();
     } catch (error) {
       log.error(error);
       throw new ServerError('Server error. Try again.');

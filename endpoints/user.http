@@ -21,7 +21,7 @@ Accept: application/json
 withCredentials: true
 
 ###
-GET {{baseUrl}}/{{urlPath}}/user/profile/posts/<username>/<userId>/<uId>
+GET {{baseUrl}}/{{urlPath}}/user/profile/posts/daniel/64187c61b173a91849641018/328351679681
 Content-Type: application/json
 Accept: application/json
 withCredentials: true

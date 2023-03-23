@@ -21,7 +21,7 @@ interface IUserAll {
   userId: string;
 }
 
-// const postCache: PostCache = new PostCache();
+const postCache: PostCache = new PostCache();
 const userCache: UserCache = new UserCache();
 const followerCache: FollowerCache = new FollowerCache();
 
@@ -52,6 +52,20 @@ export class Get {
     const cachedUser: IUserDocument = (await userCache.getUserFromCache(userId)) as IUserDocument;
     const existingUser: IUserDocument = cachedUser ? cachedUser : await userService.getUserById(userId);
     res.status(HTTP_STATUS.OK).json({ message: 'Get user profile by id', user: existingUser });
+  }
+
+  public async profileAndPosts(req: Request, res: Response): Promise<void> {
+    const { userId, username, uId } = req.params;
+    const userName: string = Helpers.firstLetterUppercase(username);
+    const cachedUser: IUserDocument = (await userCache.getUserFromCache(userId)) as IUserDocument;
+    const cachedUserPosts: IPostDocument[] = await postCache.getUserPostsFromCache('post', parseInt(uId, 10));
+
+    const existingUser: IUserDocument = cachedUser ? cachedUser : await userService.getUserById(userId);
+    const userPosts: IPostDocument[] = cachedUserPosts.length
+      ? cachedUserPosts
+      : await postService.getPosts({ username: userName }, 0, 100, { createdAt: -1 });
+
+    res.status(HTTP_STATUS.OK).json({ message: 'Get user profile and posts', user: existingUser, posts: userPosts });
   }
 
   private async allUsers({ newSkip, limit, skip, userId }: IUserAll): Promise<IAllUsers> {
