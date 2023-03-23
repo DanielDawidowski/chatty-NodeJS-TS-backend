@@ -55,8 +55,8 @@ class HealthRoutes {
       res
         .status(HTTP_STATUS.OK)
         .send(
-          `Fibonacci series of ${num} is ${result} and it took ${end - start}ms and runs with process id ${process.pid} on ${
-            response.data
+          `Fibonacci series of ${num} is ${result} and it took ${end - start}ms and runs with process id ${
+            process.pid
           } at ${moment().format('LL')}`
         );
     });
@@ -71,6 +71,21 @@ class HealthRoutes {
       return this.fibo(data - 2) + this.fibo(data - 1);
     }
   }
+
+  // private fibo(num: number): number {
+  //   let a = 1;
+  //   let b = 0;
+  //   let temp = 0;
+
+  //   while (num >= 0) {
+  //     temp = a;
+  //     a = a + b;
+  //     b = temp;
+  //     num--;
+  //   }
+
+  //   return b;
+  // }
 }
 
 export const healthRoutes: HealthRoutes = new HealthRoutes();
