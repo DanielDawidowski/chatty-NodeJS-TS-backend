@@ -22,7 +22,6 @@ Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
-
 ###
 POST {{baseUrl}}/{{urlPath}}/post
 Content-Type: application/json
