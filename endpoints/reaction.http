@@ -1,0 +1,49 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userTo": "64187c6db173a9184964101f",
+  "postId": "6419a449287b4393e3a02339",
+  "type": "love",
+  "previousReaction": "like",
+  "postReactions": {"like": 0,"love": 1,"happy": 0,"sad": 0,"wow": 0,"angry": 0},
+  "profilePicture": "https://res.cloudinary.com/dandawid/image/upload/v1678711538/640f1af295323c118ae0fc4d"
+}
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/reaction/64120bb7ddad5b01c12e4ad0/wow/{"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 0,"angry": 0}
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/641076c98f58fe541e497259
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/Daniel/641076c98f58fe541e497259
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/username/Daniel
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
