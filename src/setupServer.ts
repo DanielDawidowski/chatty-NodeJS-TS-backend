@@ -1,4 +1,5 @@
 import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
+import apiStats from 'swagger-stats';
 import http from 'http';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -36,6 +37,7 @@ export class ChattyServer {
     this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
     this.routeMiddleware(this.app);
+    this.apiMonitoring(this.app);
     this.globalErrorHandler(this.app);
     this.startServer(this.app);
   }
@@ -69,6 +71,14 @@ export class ChattyServer {
 
   private routeMiddleware(app: Application): void {
     applicationRoutes(app);
+  }
+
+  private apiMonitoring(app: Application): void {
+    app.use(
+      apiStats.getMiddleware({
+        uriPath: '/api-monitoring'
+      })
+    );
   }
 
   private globalErrorHandler(app: Application): void {
